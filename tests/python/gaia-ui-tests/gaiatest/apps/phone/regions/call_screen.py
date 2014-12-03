@@ -135,7 +135,7 @@ class CallScreen(Phone):
 
         # Flick lockscreen handle to the destination
         Actions(self.marionette).flick(
-            lockscreen_handle, lockscreen_handle_x_centre, lockscreen_handle_y_centre, handle_destination, 0
+            lockscreen_handle, lockscreen_handle_x_centre, lockscreen_handle_y_centre, handle_destination, 0, 1000
         ).perform()
 
     def reject_call(self):
