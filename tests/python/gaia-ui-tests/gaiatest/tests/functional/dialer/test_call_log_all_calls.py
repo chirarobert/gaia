@@ -63,6 +63,9 @@ class TestCallLogAllCalls(GaiaTestCase):
             message="Plivo didn't report the call as completed")
         self.call_uuid = None
 
+        import time
+        time.sleep(5)
+
         self.apps.switch_to_displayed_app()
         call_log = self.phone.tap_call_log_toolbar_button()
 
