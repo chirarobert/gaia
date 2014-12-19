@@ -37,6 +37,7 @@ class Camera(Base):
 
     # ConfirmDialog
     _select_button_locator = (By.CSS_SELECTOR, '.test-confirm-select')
+    _image_view_locator = (By.CSS_SELECTOR, '.image-view')
 
     def launch(self):
         Base.launch(self)
@@ -83,6 +84,9 @@ class Camera(Base):
     def tap_select_button(self):
         select = self.marionette.find_element(*self._select_button_locator)
         Wait(self.marionette).until(expected.element_enabled(select))
+
+        image = Wait(self.marionette).until(expected.element_present(*self._image_view_locator))
+        Wait(self.marionette).until(expected.element_displayed(image))
 
         try:
             select.tap()
