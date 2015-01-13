@@ -181,6 +181,8 @@ class Ftu(Base):
 
     def connect_to_wifi(self, network_ssid, password, key_management=None):
         wifi_network = self.find_wifi_network(network_ssid)
+        import time
+        time.sleep(2)
         wifi_network.tap()
 
         # This is in the event we are using a Wifi Network that requires a password

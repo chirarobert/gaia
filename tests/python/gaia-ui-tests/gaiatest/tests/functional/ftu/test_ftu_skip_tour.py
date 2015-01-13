@@ -116,3 +116,10 @@ class TestFtu(GaiaTestCase):
 
         # Switch back to top level now that FTU app is gone
         self.wait_for_condition(lambda m: self.apps.displayed_app.name == Homescreen.name)
+
+    def tearDown(self):
+        import sys
+        if sys.exc_info() != (None, None, None):
+            print 'hey'
+
+        GaiaTestCase.tearDown(self)
