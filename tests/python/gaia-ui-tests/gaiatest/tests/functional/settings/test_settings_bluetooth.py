@@ -22,7 +22,6 @@ class TestBluetoothSettings(GaiaTestCase):
 
         https://moztrap.mozilla.org/manage/case/6071/
         """
-        device_name = str(time.time())
 
         settings = Settings(self.marionette)
         settings.launch()
@@ -30,11 +29,8 @@ class TestBluetoothSettings(GaiaTestCase):
         bluetooth_settings = settings.open_bluetooth_settings()
         bluetooth_settings.enable_bluetooth()
 
-        bluetooth_settings.tap_rename_my_device()
-        bluetooth_settings.type_phone_name(device_name)
-        bluetooth_settings.tap_update_device_name_ok()
-
         bluetooth_settings.enable_visible_to_all()
+        device_name = bluetooth_settings.device_name
 
         # Now have host machine inquire and shouldn't find our device
         device_found = self.bluetooth_host.is_device_visible(device_name)

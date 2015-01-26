@@ -706,6 +706,25 @@ var GaiaDataLayer = {
     };
   },
 
+  bluetoothIsDeviceDiscoverable: function(aCallback) {
+    var callback = aCallback || marionetteScriptFinished;
+
+    var req = window.navigator.mozBluetooth.getDefaultAdapter();
+    req.onsuccess = function() {
+      var adapter = req.result;
+      if (adapter.discoverable) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    };
+    req.onerror = function(event) {
+      console.log('getDefaultAdapter returned unexpected error: ' +
+                  event.target.error.name);
+      callback(false);
+    };
+  },
+
   deleteAllAlarms: function() {
     window.wrappedJSObject.AlarmManager.getAlarmList(function(aList) {
       aList.forEach(function(aAlarm) {

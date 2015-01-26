@@ -30,7 +30,7 @@ class BluetoothHost():
     def is_device_visible(self, device_to_find):
         # Have the host bluetooth adaptor search for the given device; up to 3 attempts
         device_found = False
-        attempts = 3
+        attempts = 10
         for attempt in range(attempts):
             nearby_devices = self.inquiry()
             time.sleep(5)

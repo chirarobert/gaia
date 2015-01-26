@@ -8,6 +8,7 @@ except:
     from marionette_driver.by import By
 
 from gaiatest.apps.base import Base
+from gaiatest import GaiaData
 
 
 class Bluetooth(Base):
@@ -22,6 +23,7 @@ class Bluetooth(Base):
     _update_device_name_form_locator = (By.ID, 'update-device-name')
     _update_device_name_input_locator = (By.ID, 'update-device-name-input')
     _update_device_name_ok_locator = (By.ID, 'update-device-name-confirm')
+    _bluetooth_device_name_locator = (By.ID, 'bluetooth-device-name')
 
     @property
     def is_bluetooth_enabled(self):
@@ -42,6 +44,8 @@ class Bluetooth(Base):
             self.marionette.find_element(*self._visible_to_all_label_locator).tap()
             self.wait_for_condition(lambda m: self.is_visible_enabled == 'true')
 
+        self.wait_for_condition(lambda m: GaiaData.bluetooth_is_discoverable)
+
     def tap_rename_my_device(self):
         self.marionette.find_element(*self._rename_my_device_button_locator).tap()
         self.wait_for_element_displayed(*self._update_device_name_form_locator)
@@ -54,3 +58,7 @@ class Bluetooth(Base):
     def tap_update_device_name_ok(self):
         self.marionette.find_element(*self._update_device_name_ok_locator).tap()
         self.wait_for_element_not_displayed(*self._update_device_name_form_locator)
+
+    @property
+    def device_name(self):
+        return self.marionette.find_element(*self._bluetooth_device_name_locator).text
